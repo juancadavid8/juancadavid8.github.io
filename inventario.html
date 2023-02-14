@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Inventario</title>
+
+    <!-- Links para css general -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="Resources/css/pages.css">
+    <link href="Resources/css/sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+    <!-- Links para dataTables css -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Links para js general -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</head>
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <a class="navbar-brand" href="index.html">
+                <img alt="Brand" src="Resources/img/logo.png" width="45" height="45">
+            </a>
+            <a class="navbar-brand" href="" style="padding-top: 10px; color: black;">SIDCOR</a>
+            <div class="list-group list-group-flush">
+                <ul class="nav nav-tabs flex-column">
+                    <li class="nav-item">
+                        <a href="#Inventarios" class="nav-link active list-group-item list-group-item-action bg-light" data-toggle="tab">Inventarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Compras" class="nav-link list-group-item list-group-item-action bg-light" data-toggle="tab">Compras</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Ventas" class="nav-link list-group-item list-group-item-action bg-light" data-toggle="tab">Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Empleados" class="nav-link list-group-item list-group-item-action bg-light" data-toggle="tab">Empleados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Ofertas" class="nav-link list-group-item list-group-item-action bg-light" data-toggle="tab">Ofertas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Contenido de página -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light border-bottom" style="background-color: #CDCDCD ">
+                <button class="btn btn-light" id="menu-toggle"><i class="fas fa-align-justify"></i></button>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                          <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="fas fa-cog"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <span class="dropdown-header">Configuración</span>
+                            <div class="dropdown-divider"></div>
+                              <a href="/PHP/Gestion/vista/Configuración/perfil.php" class="dropdown-item" target="pagina">
+                                <i class="fas fa-user-cog"></i> Perfil
+                              </a>
+                            <div class="dropdown-divider"></div>
+                              <a href="/PHP/Gestion/vista/Configuración/contrasena.php" class="dropdown-item" target="pagina">
+                                <i class="fas fa-key"></i> Contraseña
+                              </a>
+                            
+                              <div class="dropdown-divider"></div>
+                              <a href="#" class="dropdown-item">
+                                <i class="fas fa-globe-americas"></i> Idioma
+                              </a>
+                          </div>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html"><i class="fas fa-door-open"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            
+            
+            <div class="tab-content">
+                <!-- Inventario -->
+                <div class="container tab-pane active" style="background: white; margin-top: 100px;padding: 20px 0px; border-radius: 10px; width: 710px;" id="Inventarios">
+                    <div class="card-header">
+                        <h2>Inventarios</h2>
+                    </div>
+                    <div class="card-body">
+                        <table id="Inventario" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>idProducto</th>
+                                    <th>producto</th>
+                                    <th>cantidad</th>
+                                    <th>acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01</td>
+                                    <td>Carne</td>
+                                    <td>35 kg</td>
+                                    <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalInventario"><i class="fas fa-edit"></i></button>&nbsp;
+                                    	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>02</td>
+                                    <td>Lechuga</td>
+                                    <td>2 kg</td>
+                                    <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalInventario"><i class="fas fa-edit"></i></button>&nbsp;
+                                    	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>03</td>
+                                    <td>Pan</td>
+                                    <td>1 kg</td>
+                                    <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalInventario"><i class="fas fa-edit"></i></button>&nbsp;
+                                    	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>04</td>
+                                    <td>Salchicas</td>
+                                    <td>3.5 kg</td>
+                                    <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalInventario"><i class="fas fa-edit"></i></button>&nbsp;
+                                    	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>05</td>
+                                    <td>Cebolla</td>
+                                    <td>0.8 kg</td>
+                                    <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalInventario"><i class="fas fa-edit"></i></button>&nbsp;
+                                    	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>06</td>
+                                    <td>tomate</td>
+                                    <td>3 kg</td>
+                                    <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalInventario"><i class="fas fa-edit"></i></button>&nbsp;
+                                    	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>07</td>
+                                    <td>tocino</td>
+                                    <td>5 kg</td>
+                                    <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalInventario"><i class="fas fa-edit"></i></button>&nbsp;
+                                    	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>08</td>
+                                    <td>salsa de tomate</td>
+                                    <td>10 kg</td>
+                                    <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalInventario"><i class="fas fa-edit"></i></button>&nbsp;
+                                    	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>idProducto</th>
+                                    <th>producto</th>
+                                    <th>cantidad</th>
+                                    <th>acciones</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            
+                <!-- /. Inventario /. -->
+
+                <!-- /. Compras /. -->
+                <div class="container tab-pane fade" style="margin-top: 100px; border-radius: 10px;" id="Compras">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Registrar Compra</h2>
+                        </div>
+                        <div class="card-body">
+                            <form name="formCompra">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-hamburger"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="producto" placeholder="Producto">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                                            </div>
+                                            <input type="number" class="form-control" id="cantidad" placeholder="Cantidad">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                            </div>
+                                            <input type="number" class="form-control" id="precioU" placeholder="Precio Unitario">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-hand-holding-usd"></i></span>
+                                            </div>
+                                            <input type="number" class="form-control" id="precioT" placeholder="Precio Total">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                                            </div>
+                                            <input type="date" class="form-control" id="fechaC" placeholder="Fecha de Compra">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-outline-secondary" onclick="regCompra()" id="botonFormulario">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+				
+				<!-- Ventas -->
+
+                <div class="container tab-pane fade" style="margin-top: 100px;padding-top: 20px; border-radius: 10px;" id="Ventas">
+                    <div class="row">
+                        <div class="col-6 col-sm-12 col-md-12 col-lg-12" id="cardDoble">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2>Registrar Venta</h2>
+                                </div>
+                                <div class="card-body" style="height: auto;">
+                                    <form name="formVenta">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-hamburger"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="producto" placeholder="Producto">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                                                    </div>
+                                                    <input type="number" class="form-control" id="cantidad" placeholder="Cantidad">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                                            </div>
+                                            <input type="date" class="form-control" id="fechaV" placeholder="Fecha de Venta">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-outline-secondary" onclick="regVenta()" id="botonFormulario">Enviar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-sm-12 col-md-12 col-lg-12" id="cardDoble">
+                        	<div class="card card-danger">
+                        		<div class="card-header">
+                        			<h3 class="card-title">Ventas</h3>
+
+                        			<div class="card-tools">
+                        				<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        				</button>
+                        				<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                        			</div>
+                        		</div>
+                        		<div class="card-body">
+                        			<canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        		</div>
+                        		<!-- /.card-body -->
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+                    
+				<!-- Empleados -->
+                
+                <div class="container tab-pane fade" style="margin-top: 100px;padding-top: 20px; border-radius: 10px;" id="Empleados">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Empleados</h2>
+                        </div>
+                        <div class="card-body">
+                            <table id="empleados" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th>TipoEmpleado</th>
+                                        <th>acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1001202586</td>
+                                        <td>Camilo Vargas</td>
+                                        <td>Administrador</td>
+                                        <td>
+                                        	<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalEmpleados"><i class="fas fa-edit"></i></button>&nbsp;
+                                        	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1015425177</td>
+                                        <td>Juan Arias</td>
+                                        <td>Empleado</td>
+                                        <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalEmpleados"><i class="fas fa-edit"></i></button>&nbsp;
+                                        	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>52337829</td>
+                                        <td>Emanuel Erazo</td>
+                                        <td>Empleado</td>
+                                        <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalEmpleados"><i class="fas fa-edit"></i></button>&nbsp;
+                                        	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1010256314</td>
+                                        <td>Eugenia Daza</td>
+                                        <td>Empleado</td>
+                                        <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalEmpleados"><i class="fas fa-edit"></i></button>&nbsp;
+                                        	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1002315864</td>
+                                        <td>Manuel Torres</td>
+                                        <td>Empleado</td>
+                                        <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalEmpleados"><i class="fas fa-edit"></i></button>&nbsp;
+                                        	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1234000111</td>
+                                        <td>Andres Nara</td>
+                                        <td>Empleado</td>
+                                        <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalEmpleados"><i class="fas fa-edit"></i></button>&nbsp;
+                                        	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1000752257</td>
+                                        <td>Laura Pulido</td>
+                                        <td>Empleado</td>
+                                        <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalEmpleados"><i class="fas fa-edit"></i></button>&nbsp;
+                                        	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1020202321</td>
+                                        <td>Andrea Palacios</td>
+                                        <td>Empleado</td>
+                                        <td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#ModalEmpleados"><i class="fas fa-edit"></i></button>&nbsp;
+                                        	<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th>TipoEmpleado</th>
+                                        <th>acciones</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+				<!-- Ofertas -->
+
+                <div class="container tab-pane fade" style="margin-top: 100px;padding-top: 20px; border-radius: 10px;" id="Ofertas">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Ofertas</h2>
+                        </div>
+                        <div class="card-body">
+                            <form name="formOferta">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-hamburger"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" id="producto" placeholder="Producto">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                                            </div>
+                                            <input type="number" class="form-control" id="porcentaje" placeholder="porcentaje">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                                    </div>
+                                    <input type="date" class="form-control" id="fechaO" placeholder="Fecha de oferta">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-outline-secondary" onclick="añadirOferta()" id="botonFormulario">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modales -->
+
+			<!-- Eliminar elemento -->
+            <div class="modal" tabindex="-1" role="dialog" id="ModalEliminar">
+              <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header alert-danger">
+                    <h5 class="modal-title">Eliminación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>¿Está seguro que desea eliminar este elemento</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="Eliminar()">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+			<!-- /. Eliminar elemento ./ -->
+
+			<!-- Editar empleado -->
+			<div class="modal" tabindex="-1" role="dialog" id="ModalEmpleados">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header alert-info">
+							<h5 class="modal-title">Edición</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form action="" name="formEmp">
+							<div class="modal-body">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+									</div>
+									<input type="text" class="form-control" id="cedula" placeholder="Cedula">
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+									</div>
+									<input type="text" class="form-control" id="nombre" placeholder="Nombre">
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+									</div>
+									<input type="text" class="form-control" id="tipoEmp" placeholder="Tipo de empleado">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+							<button type="button" class="btn btn-outline-info" onclick="ModificarEmpleado()">Editar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /. Editar empleado ./ -->
+
+			<!-- Modificar un inventario -->
+
+			<div class="modal" tabindex="-1" role="dialog" id="ModalInventario">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header alert-info">
+                    <h5 class="modal-title">Edición</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form action="" name="addForm">
+	                  	<div class="modal-body">
+		                    <div class="input-group mb-3">
+		                        <div class="input-group-prepend">
+		                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+		                        </div>
+		                        <input type="number" class="form-control" id="idProducto" placeholder="idProducto" required>
+		                    </div>
+		                    <div class="input-group mb-3">
+		                        <div class="input-group-prepend">
+		                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+		                        </div>
+		                        <input type="text" class="form-control" id="producto" placeholder="producto" required>
+		                    </div>
+		                    <div class="input-group mb-3">
+		                        <div class="input-group-prepend">
+		                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+		                        </div>
+		                        <input type="number" class="form-control" id="cantidad" placeholder="cantidad" required>
+		                    </div>
+	                  	</div>
+					</form>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-outline-info" onclick="ModificarInventario()">Editar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+			<!-- /. Modificar un inventario ./ -->
+
+        </div>
+    </div>
+
+
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $(function () {
+
+        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+        var donutData        = {
+          labels: [
+              'Lunes', 
+              'Martes',
+              'Miercoles', 
+              'Jueves', 
+              'Viernes', 
+              'Sabados', 
+          ],
+          datasets: [
+            {
+              data: [700,500,400,600,300,100],
+              backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+            }
+          ]
+        }
+        var donutOptions     = {
+          maintainAspectRatio : false,
+          responsive : true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        var donutChart = new Chart(donutChartCanvas, {
+          type: 'doughnut',
+          data: donutData,
+          options: donutOptions      
+        })
+    })
+
+    function Eliminar(){
+		swal({
+			title: "Estas seguro?",
+			text: "Este elemento será eliminado permanentemente",
+			icon: "warning",
+			buttons: ["Cancelar","Eliminar"],
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				swal("Este elemento a sido eliminado!!", {
+					icon: "success",
+				});
+			} else {
+				swal("Has cancelado la operación!!");
+			}
+		});
+	}
+
+	function ModificarInventario(){
+		
+		var formulario = document.addForm;
+
+		if (formulario.idProducto.value == "") {
+			// alert("Por favor ingresar id producto");
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.producto.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.cantidad.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}else{
+			swal({
+				title: "Correcto!!",
+				text: "Su elemento a sido modificado",
+				icon: "success",
+				button: "Siguiente",
+			});
+			
+		}
+	}
+
+	function ModificarEmpleado(){
+		
+		var formulario = document.formEmp;
+
+		if (formulario.cedula.value == "") {
+			// alert("Por favor ingresar id producto");
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.nombre.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.tipoEmp.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}else{
+			swal({
+				title: "Correcto!!",
+				text: "Su elemento a sido modificado",
+				icon: "success",
+				button: "Siguiente",
+			});
+			
+		}
+	}
+</script>
+<script>
+	function regCompra(){
+		var formulario = document.formCompra;
+
+		if (formulario.producto.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.cantidad.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.precioU.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.precioT.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.fechaC.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}else{
+			swal({
+				title: "Correcto!!",
+				text: "Su compra a sido registrada",
+				icon: "success",
+				button: "Siguiente",
+			});
+		}
+	}
+
+	function regVenta(){
+		var formulario = document.formVenta;
+
+		if (formulario.producto.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.cantidad.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}else if (formulario.fechaV.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}else{
+			swal({
+				title: "Correcto!!",
+				text: "Su Venta a sido registrada",
+				icon: "success",
+				button: "Siguiente",
+			});
+		}
+	}
+
+	function añadirOferta(){
+		var formulario = document.formOferta;
+
+		if (formulario.producto.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}
+		else if (formulario.porcentaje.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}else if (formulario.fechaO.value == "") {
+			swal({
+				title: "Error",
+				text: "Los datos son incorrectos",
+				icon: "warning",
+				button: "Volver",
+			});
+		}else{
+			swal({
+				title: "Correcto!!",
+				text: "Su oferta se realizará el día: "+formulario.fechaO.value,
+				icon: "success",
+				button: "Siguiente",
+			});
+		}
+	}
+</script>
+
+<!-- Scripts para las datatables -->
+<script src="Resources/js/dataTables.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+
+<!-- Script para grafica en ventas -->
+<script src="Resources/js/ventas.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+</body>
+</html>
