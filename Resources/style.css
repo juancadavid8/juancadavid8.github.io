@@ -1,0 +1,53 @@
+/* Anchor de la pagina JUAN CADAVID */
+.sidenav {
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* Links en el navegador izquierdo JUAN CADAVID */
+.sidenav a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+
+/* Hover de links JUAN CADAVID */
+.sidenav a:hover {
+    background-color: #555;
+    color: white;
+}
+
+/* Contenido principal JUAN CADAVID */
+.main {
+    margin-left: 200px;
+    padding: 0px 10px;
+}
+
+/* Agregamos algunos estilos personalizados JUAN CADAVID */
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    background-color: #0ba18c;
+    border-color: #0ba18c;
+}
+
+/* Más estulos personalizados JUAN CADAVID */
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-danger:hover {
+    background-color: #368986;
+    border-color: #368986;
+}
+
+/* Estilos logo */
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
