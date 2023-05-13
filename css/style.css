@@ -651,7 +651,7 @@ button {
 }
 
 .contact_section {
-    width: 100%;
+    width: 85%;
     float: left;
     background-image: url(../images/contact-bg.png);
     background-size: 100%;

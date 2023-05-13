@@ -16,22 +16,21 @@
         <div class="logo">
             <img width="100" src="Resources/logo.png" alt="Logo de la pagina">
         </div>
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-        <a href="#">Link 4</a>
-        <a href="#">Link 5</a>
+        <a class="nav-link" href="index.html">Home</a>
+        <a href="index.html">Registro Prendas</a>
+        <a href="registro.html">Gestión prendas</a>
     </div>
 
     <div class="main">
 
-        <div class="container my-4">
+        <div class="container my-4 bg-products">
             <div class="row">
                 <div class="col-md-12">
                     <h1>Lista de productos</h1>
                     <hr>
                     <!-- Botón para abrir el modal de agregar producto JUAN CADAVID -->
-                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#agregarProducto">Agregar producto</button>
+                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                        data-target="#agregarProducto">Agregar producto</button>
                     <!-- Tabla de productos JUAN CADAVID -->
                     <table class="table">
                         <thead>
@@ -45,6 +44,13 @@
                         </thead>
                         <tbody>
                             <!-- Aquí se mostrarán los productos agregados -->
+                            <tr>
+                                <td>54</td>
+                                <td>Chaqueta</td>
+                                <td>Poliester</td>
+                                <td>50000</td>
+                                <td><button type='button' class='btn btn-danger btnEliminarProducto' data-id='54'>Eliminar</button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -52,7 +58,8 @@
         </div>
 
         <!-- Modal de agregar producto JUAN CADAVID -->
-        <div class="modal fade" id="agregarProducto" tabindex="-1" role="dialog" aria-labelledby="modalAgregarProducto" aria-hidden="true">
+        <div class="modal fade" id="agregarProducto" tabindex="-1" role="dialog" aria-labelledby="modalAgregarProducto"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
