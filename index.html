@@ -125,22 +125,22 @@
 
                 <div class="inputGroup inputGroup1">
                     <label for="email">Usuario</label>
-                    <input type="text" id="email" class="email" maxlength="256" />
-                    <p class="helper helper1">ingrese su usuario o correo</p>
-                    <span class="indicator"></span>
+                    <input type="text" name="usuario" id="usuario" class="email" maxlength="256"/>
                 </div>
                 <div class="inputGroup inputGroup1">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" class="password" />
-                    <p class="helper helper1">ingrese la contraseña</p>
+                    <input type="password" name="contraseña" id="contraseña" class="password" />
                 </div>
                 <div class="inputGroup inputGroup3">
-                    <a id="login" href="registroPrendas.html">Log in</a>
+                    <a id="login" onclick="login()">Iniciar sesion</a>
+                    <script src="Resources/script login.js"></script>
                 </div>
-                <a href="">Olvidaste tu contraseña</a>
                 <div class="inputGroup4">
                     <button id="login">Registrarse</button>
                 </div>
+                <br>
+                <br>
+                <a href="">Olvidaste tu contraseña</a>
             </form>
         </section>
         <aside>
