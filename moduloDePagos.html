@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Resources/style.css">
+    <title>Pagos empleados</title>
+</head>
+
+<body>
+    <div class="sidenav">
+        <div class="logo">
+            <img width="100" src="Resources/logo.png" alt="Logo de la pagina">
+        </div>
+        <a class="nav-link" href="index.html">Home</a>
+        <a href="registroPrendas.html">Registro Prendas</a>
+        <a href="tablaPrendas.html">Gestión prendas</a>
+        <a href="moduloDePagos.html">Modulo de pagos</a>
+    </div>
+
+    <div class="main">
+        <div class="container my-4 bg-products">
+            <div class="container">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="empleados-tab" data-toggle="tab" href="#tablaEmpleados"
+                            role="tab" aria-controls="home" aria-selected="true">Empleados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="prendas-tab" data-toggle="tab" href="#prendas" role="tab"
+                            aria-controls="profile" aria-selected="false">Prendas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="costos-tab" data-toggle="tab" href="#costos" role="tab"
+                            aria-controls="contact" aria-selected="false">Costos</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <!-- Empleados -->
+                    <div class="tab-pane fade show active" id="tablaEmpleados" role="tabpanel"
+                        aria-labelledby="empleados-tab">
+                        <h2>Lista de empleados</h2>
+                        <button type="button" class="btn btn-primary mb-2" data-toggle="modal"
+                            data-target="#agregarEmpleadoModal">Agregar Empleado</button>
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Tipo de ropa</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="filaE-1">
+                                    <td>1</td>
+                                    <td>Manuel</td>
+                                    <td>Cadavid</td>
+                                    <td>Sastre mujer</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="eliminarEmpleado(1)">Eliminar</button>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                            onclick="editarEmpleado(1)">Editar</button>
+                                    </td>
+                                </tr>
+                                <tr id="filaE-2">
+                                    <td>2</td>
+                                    <td>Eunicie</td>
+                                    <td>Smith</td>
+                                    <td>Sastre hombre</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="eliminarEmpleado(2)">Eliminar</button>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                            onclick="editarEmpleado(2)">Editar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="modal fade" id="agregarEmpleadoModal" tabindex="-1" role="dialog"
+                            aria-labelledby="agregarEmpleadoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="agregarEmpleadoModalLabel">Agregar Empleado</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Formulario para agregar empleado -->
+                                        <form id="agregarEmpleadoForm">
+                                            <div class="form-group">
+                                                <label for="nombre">Nombre:</label>
+                                                <input type="text" class="form-control" id="nombre">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="apellido">Apellido:</label>
+                                                <input type="text" class="form-control" id="apellido">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="departamento">Departamento:</label>
+                                                <input type="text" class="form-control" id="departamento">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="guardarEmpleado()">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Prendas -->
+                    <div class="tab-pane fade" id="prendas" role="tabpanel" aria-labelledby="prendas-tab">
+                        <h2>Lista de prendas</h2>
+                        <button type="button" class="btn btn-primary mb-2" data-toggle="modal"
+                            data-target="#agregarPrendaModal">Agregar Prenda</button>
+                        <table id="tablaPrendas" class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="filaP-1">
+                                    <td>1</td>
+                                    <td>Vestido de noche</td>
+                                    <td>Elegante vestido de noche para ocasiones especiales</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="eliminarPrenda(1)">Eliminar</button>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                            onclick="editarPrenda(1)">Editar</button>
+                                    </td>
+                                </tr>
+                                <tr id="filaP-2">
+                                    <td>2</td>
+                                    <td>Traje de etiqueta</td>
+                                    <td>Traje elegante para eventos formales</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="eliminarPrenda(2)">Eliminar</button>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                            onclick="editarPrenda(2)">Editar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Modal para agregar prenda -->
+                        <div class="modal fade" id="agregarPrendaModal" tabindex="-1" role="dialog"
+                            aria-labelledby="agregarPrendaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="agregarPrendaModalLabel">Agregar Prenda</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Formulario para agregar prenda -->
+                                        <form id="agregarPrendaForm">
+                                            <div class="form-group">
+                                                <label for="nombrePrenda">Nombre:</label>
+                                                <input type="text" class="form-control" id="nombrePrenda">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="descripcion">Descripción:</label>
+                                                <input type="text" class="form-control" id="descripcion">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="guardarPrenda()">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Costos por prenda por empleado -->
+                    <div class="tab-pane fade" id="costos" role="tabpanel" aria-labelledby="costos-tab">
+                        <h2>Relación Prenda - Empleado</h2>
+
+                        <button type="button" class="btn btn-primary mb-2" data-toggle="modal"
+                            data-target="#agregarRelacionModal">Agregar Relación</button>
+                        <table id="tablaRelacion" class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>ID Empleado</th>
+                                    <th>Nombre Empleado</th>
+                                    <th>ID Prenda</th>
+                                    <th>Nombre Prenda</th>
+                                    <th>Costo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="filaR-1">
+                                    <td>1</td>
+                                    <td>John Doe</td>
+                                    <td>1</td>
+                                    <td>Vestido de noche</td>
+                                    <td>$199.99</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="eliminarRelacion(1)">Eliminar</button>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                            onclick="editarRelacion(1)">Editar</button>
+                                    </td>
+                                </tr>
+                                <tr id="filaR-2">
+                                    <td>2</td>
+                                    <td>Jane Smith</td>
+                                    <td>2</td>
+                                    <td>Traje de etiqueta</td>
+                                    <td>$299.99</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="eliminarRelacion(2)">Eliminar</button>
+                                        <button type="button" class="btn btn-info btn-sm"
+                                            onclick="editarRelacion(2)">Editar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Modal para agregar relación -->
+                        <div class="modal fade" id="agregarRelacionModal" tabindex="-1" role="dialog"
+                            aria-labelledby="agregarRelacionModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="agregarRelacionModalLabel">Agregar Relación</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Formulario para agregar relación -->
+                                        <form id="agregarRelacionForm">
+                                            <div class="form-group">
+                                                <label for="idEmpleado">ID Empleado:</label>
+                                                <input type="text" class="form-control" id="idEmpleado">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nombreEmpleado">Nombre Empleado:</label>
+                                                <input type="text" class="form-control" id="nombreEmpleado">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="idPrenda">ID Prenda:</label>
+                                                <input type="text" class="form-control" id="idPrenda">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nombrePrenda">Nombre Prenda:</label>
+                                                <input type="text" class="form-control" id="nombrePrenda">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="costo">Costo:</label>
+                                                <input type="text" class="form-control" id="costo">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="guardarRelacion()">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+        // Funciones de empleado
+        function eliminarEmpleado(id) {
+            // Eliminar el empleado con el ID proporcionado
+            var row = document.getElementById("filaE-" + id);
+            console.log(row);
+            row.parentNode.removeChild(row);
+        }
+
+        function editarEmpleado(id) {
+            // Lógica para editar el empleado con el ID proporcionado
+            console.log("Editar empleado con ID: " + id);
+        }
+
+        function guardarEmpleado() {
+            // Obtener los valores del formulario
+            var nombre = document.getElementById("nombre").value;
+            var apellido = document.getElementById("apellido").value;
+            var departamento = document.getElementById("departamento").value;
+
+            // Obtener el último ID de la tabla
+            var tableBody = document.getElementById("tablaEmpleados").getElementsByTagName("tbody")[0];
+            var lastId = parseInt(tableBody.rows[tableBody.rows.length - 1].cells[0].innerHTML);
+            var newId = lastId + 1;
+
+            // Crear una nueva fila en la tabla con los datos del nuevo empleado
+            var newRow = document.createElement("tr");
+            newRow.id = "filaE-" + newId;
+            newRow.innerHTML = `
+                <td>${newId}</td>
+                <td>${nombre}</td>
+                <td>${apellido}</td>
+                <td>${departamento}</td>
+                <td>
+                <button type="button" class="btn btn-danger btn-sm" onclick="eliminarEmpleado(${newId})">Eliminar</button>
+                <button type="button" class="btn btn-info btn-sm" onclick="editarEmpleado(${newId})">Editar</button>
+                </td>
+            `;
+
+            // Agregar la nueva fila al cuerpo de la tabla
+            tableBody.appendChild(newRow);
+
+            // Limpiar el formulario
+            document.getElementById("agregarEmpleadoForm").reset();
+
+            // Cerrar el modal
+            $("#agregarEmpleadoModal").modal("hide");
+        }
+
+        // Funciones de prendas
+
+        function eliminarPrenda(id) {
+            // Eliminar la prenda con el ID proporcionado
+            var row = document.getElementById("filaP-" + id);
+            row.parentNode.removeChild(row);
+        }
+
+        function editarPrenda(id) {
+            // Lógica para editar la prenda con el ID proporcionado
+            console.log("Editar prenda con ID: " + id);
+        }
+
+        function guardarPrenda() {
+            // Obtener los valores del formulario
+            var nombre = document.getElementById("nombrePrenda").value;
+            var descripcion = document.getElementById("descripcion").value;
+
+            // Obtener el último ID de la tabla
+            var tableBody = document.getElementById("tablaPrendas").getElementsByTagName("tbody")[0];
+            var lastId = parseInt(tableBody.rows[tableBody.rows.length - 1].cells[0].innerHTML);
+            var newId = lastId + 1;
+
+            // Crear una nueva fila en la tabla con los datos de la nueva prenda
+            var newRow = document.createElement("tr");
+            newRow.id = "filaP-" + newId;
+            newRow.innerHTML = `
+                <td>${newId}</td>
+                <td>${nombre}</td>
+                <td>${descripcion}</td>
+                <td>
+                <button type="button" class="btn btn-danger btn-sm" onclick="eliminarPrenda(${newId})">Eliminar</button>
+                <button type="button" class="btn btn-info btn-sm" onclick="editarPrenda(${newId})">Editar</button>
+                </td>
+            `;
+
+            // Agregar la nueva fila al cuerpo de la tabla
+            tableBody.appendChild(newRow);
+
+            // Limpiar el formulario
+            document.getElementById("agregarPrendaForm").reset();
+
+            // Cerrar el modal
+            $("#agregarPrendaModal").modal("hide");
+        }
+
+        // Funciones de Relacion
+
+        function eliminarRelacion(id) {
+            // Eliminar la relación con el ID proporcionado
+            var row = document.getElementById("filaR-" + id);
+            row.parentNode.removeChild(row);
+        }
+
+        function editarRelacion(id) {
+            // Lógica para editar la relación con el ID proporcionado
+            console.log("Editar relación con ID: " + id);
+        }
+
+        function guardarRelacion() {
+            // Obtener los valores del formulario
+            var idEmpleado = document.getElementById("idEmpleado").value;
+            var nombreEmpleado = document.getElementById("nombreEmpleado").value;
+            var idPrenda = document.getElementById("idPrenda").value;
+            var nombrePrenda = document.getElementById("nombrePrenda").value;
+            var costo = document.getElementById("costo").value;
+
+            // Obtener el último ID de la tabla
+            var tableBody = document.getElementById("tablaRelacion").getElementsByTagName("tbody")[0];
+            var lastId = parseInt(tableBody.rows[tableBody.rows.length - 1].cells[0].innerHTML);
+            var newId = lastId + 1;
+
+            // Crear una nueva fila en la tabla con los datos de la nueva relación
+            var newRow = document.createElement("tr");
+            newRow.id = "filaR-" + newId;
+            newRow.innerHTML = `
+                <td>${idEmpleado}</td>
+                <td>${nombreEmpleado}</td>
+                <td>${idPrenda}</td>
+                <td>${nombrePrenda}</td>
+                <td>${costo}</td>
+                <td>
+                <button type="button" class="btn btn-danger btn-sm" onclick="eliminarRelacion(${newId})">Eliminar</button>
+                <button type="button" class="btn btn-info btn-sm" onclick="editarRelacion(${newId})">Editar</button>
+                </td>
+            `;
+
+            // Agregar la nueva fila al cuerpo de la tabla
+            tableBody.appendChild(newRow);
+
+            // Limpiar el formulario
+            document.getElementById("agregarRelacionForm").reset();
+
+            // Cerrar el modal
+            $("#agregarRelacionModal").modal("hide");
+        }
+
+    </script>
+
+</body>
+
+</html>
