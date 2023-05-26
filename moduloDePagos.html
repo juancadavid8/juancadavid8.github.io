@@ -37,6 +37,10 @@
                         <a class="nav-link" id="costos-tab" data-toggle="tab" href="#costos" role="tab"
                             aria-controls="contact" aria-selected="false">Costos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="calculo-tab" data-toggle="tab" href="#calculo" role="tab"
+                            aria-controls="calculo" aria-selected="false">Calculo de pagos</a>
+                    </li>
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
@@ -217,7 +221,7 @@
                             <tbody>
                                 <tr id="filaR-1">
                                     <td>1</td>
-                                    <td>John Doe</td>
+                                    <td>Manuel Cadavi</td>
                                     <td>1</td>
                                     <td>Vestido de noche</td>
                                     <td>$199.99</td>
@@ -230,7 +234,7 @@
                                 </tr>
                                 <tr id="filaR-2">
                                     <td>2</td>
-                                    <td>Jane Smith</td>
+                                    <td>Eunicie Smith</td>
                                     <td>2</td>
                                     <td>Traje de etiqueta</td>
                                     <td>$299.99</td>
@@ -290,6 +294,33 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="tab-pane fade" id="calculo" role="tabpanel" aria-labelledby="calculo-tab">
+                        <h2>Calculo de pagos</h2>
+                        <div class="form-group">
+                            <label for="empleado">Empleado:</label>
+                            <select class="form-control" id="empleado" onchange="cambiarCostoPrenda()">
+                                <option value="1">Manuel Cadavid</option>
+                                <option value="2">Eunicie Smith</option>
+                                <option value="3">Juan Cadavid</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cantidadPrendas">Cantidad de Prendas:</label>
+                            <input type="number" class="form-control" id="cantidadPrendas" min="0" step="1"
+                                onchange="calcularPago()">
+                        </div>
+                        <div class="form-group">
+                            <label for="costoPrenda">Costo de Prenda:</label>
+                            <input type="number" class="form-control" id="costoPrenda" min="0" step="0.01" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pagoTotal">Pago Total:</label>
+                            <input type="text" class="form-control" id="pagoTotal" readonly>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="generarPDF()">Generar PDF</button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -301,7 +332,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
     <script>
 
         // Funciones de empleado
@@ -447,6 +479,97 @@
 
             // Cerrar el modal
             $("#agregarRelacionModal").modal("hide");
+        }
+
+        // Calculo de pago
+
+        function cambiarCostoPrenda() {
+            var empleadoSelect = document.getElementById("empleado");
+            var costoPrendaInput = document.getElementById("costoPrenda");
+
+            var empleadoId = empleadoSelect.value;
+
+            // Obtener el costo de la prenda según el empleado seleccionado
+            var costoPrenda = obtenerCostoPrenda(empleadoId);
+
+            // Actualizar el valor del input del costo de la prenda
+            costoPrendaInput.value = costoPrenda.toFixed(2);
+
+            // Calcular el pago total basado en la cantidad de prendas y el costo de la prenda
+            calcularPago();
+        }
+
+        function calcularPago() {
+            var cantidadPrendas = parseInt(document.getElementById("cantidadPrendas").value);
+            var costoPrenda = parseFloat(document.getElementById("costoPrenda").value);
+
+            if (isNaN(cantidadPrendas) || isNaN(costoPrenda) || cantidadPrendas < 0 || costoPrenda < 0) {
+                document.getElementById("pagoTotal").value = "";
+                return;
+            }
+
+            var pagoTotal = cantidadPrendas * costoPrenda;
+
+            document.getElementById("pagoTotal").value = "$" + pagoTotal.toFixed(2);
+        }
+
+        function obtenerCostoPrenda(empleadoId) {
+            // Lógica para obtener el costo de la prenda según el empleado seleccionado
+            // Aquí puedes implementar tu lógica específica
+            // Puedes utilizar una estructura condicional o una consulta a una base de datos
+
+            // Ejemplo de asignación de costos predefinidos según el empleado seleccionado
+            switch (empleadoId) {
+                case "1":
+                    return 199.99;
+                case "2":
+                    return 299.99;
+                case "3":
+                    return 249.99;
+                default:
+                    return 0;
+            }
+        }
+
+        // Llamar a la función inicialmente para mostrar el costo de prenda según el empleado seleccionado por defecto
+        cambiarCostoPrenda();
+
+        // Generación de pdf
+
+        function generarPDF() {
+            // Obtener los valores de la cuenta de pago
+            var empleadoSelect = document.getElementById("empleado");
+            var empleado = empleadoSelect.options[empleadoSelect.selectedIndex].text;
+            var cantidadPrendas = parseInt(document.getElementById("cantidadPrendas").value);
+            var costoPrenda = parseFloat(document.getElementById("costoPrenda").value);
+            var pagoTotal = parseFloat(document.getElementById("pagoTotal").value.replace('$', ''));
+
+            // Crear el contenido del PDF
+            var contenido = [
+                { text: "Reporte de Cuenta de Pago", style: "header" },
+                { text: "Empleado: " + empleado },
+                { text: "Cantidad de Prendas: " + cantidadPrendas },
+                { text: "Costo de Prenda: $" + costoPrenda.toFixed(2) },
+                { text: "Pago Total: $" + pagoTotal.toFixed(2) }
+            ];
+
+            // Definir el estilo del encabezado
+            var estilos = {
+                header: {
+                    fontSize: 18,
+                    bold: true,
+                    margin: [0, 0, 0, 10]
+                }
+            };
+
+            // Configurar el documento PDF
+            var docDefinition = {
+                content: contenido,
+                styles: estilos
+            };
+
+            // Generar el PDF
+            pdfMake.createPdf(docDefinition).download("reporte_pago.pdf");
         }
 
     </script>
